@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 #coding: utf-8
 from distutils.core import setup
+from robokassa import get_version
 
 for cmd in ('egg_info', 'develop'):
     import sys
@@ -12,21 +13,18 @@ reload(sys).setdefaultencoding("UTF-8")
 
 setup(
     name='django-robokassa',
-    version='1.2',
+    version=get_version(),
     author='Mikhail Korobov',
     author_email='kmike84@gmail.com',
-
     packages=['robokassa', 'robokassa.migrations'],
-
     url='https://bitbucket.org/kmike/django-robokassa/',
-    license = 'MIT license',
-    description = u'Приложение для интеграции платежной системы ROBOKASSA в проекты на Django.'.encode('utf8'),
-    long_description = open('README.rst').read().decode('utf8') + u"\n\n" + open('CHANGES.rst').read().decode('utf8'),
-
+    license='MIT license',
+    description=u'Приложение для интеграции платежной системы '
+                u'ROBOKASSA в проекты на Django.'.encode('utf8'),
+    long_description=open('README.rst').read().decode('utf8') + u"\n\n" + open('CHANGES.rst').read().decode('utf8'),
     requires=['django (>= 1.3)'],
-
     classifiers=(
-        'Development Status :: 4 - Beta',
+        'Development Status :: 5 - Production/Stable',
         'Environment :: Web Environment',
         'Framework :: Django',
         'Intended Audience :: Developers',
