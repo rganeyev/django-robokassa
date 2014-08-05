@@ -11,11 +11,11 @@ from robokassa.models import SuccessNotification
 
 class BaseRobokassaForm(forms.Form):
     def __init__(self, *args, **kwargs):
-        super(BaseRobokassaForm, self).__init__(*args, **kwargs)
-
         self.password1 = kwargs.pop('password1', PASSWORD1)
         self.password2 = kwargs.pop('password2', PASSWORD2)
         self.login = kwargs.pop('login', LOGIN)
+
+        super(BaseRobokassaForm, self).__init__(*args, **kwargs)
 
         # создаем дополнительные поля
         for key in EXTRA_PARAMS:
@@ -84,8 +84,8 @@ class RobokassaForm(BaseRobokassaForm):
         for field in self.fields:
             self.fields[field].widget = forms.HiddenInput()
 
-        self.fields['SignatureValue'].initial = self._get_signature()
         self.fields['MrchLogin'].initial = self.login
+        self.fields['SignatureValue'].initial = self._get_signature()
 
     def get_redirect_url(self):
         """
