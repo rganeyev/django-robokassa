@@ -13,12 +13,12 @@ from robokassa.signals import (
 
 
 @csrf_exempt
-def receive_result(request):
+def receive_result(request, **credentials):
     """
     Обработчик для ResultURL
     """
     data = request.POST if USE_POST else request.GET
-    form = ResultURLForm(data)
+    form = ResultURLForm(data, **credentials)
     if form.is_valid():
         inv_id = form.cleaned_data['InvId']
         out_sum = form.cleaned_data['OutSum']
@@ -43,13 +43,13 @@ def receive_result(request):
 @csrf_exempt
 def success(request, template_name='robokassa/success.html',
             extra_context=None,
-            error_template_name='robokassa/error.html'):
+            error_template_name='robokassa/error.html', **credentials):
     """
-    Обработчик для SuccessURL
+    Обработчик для SuccessURL.
     """
 
     data = request.POST if USE_POST else request.GET
-    form = SuccessRedirectForm(data)
+    form = SuccessRedirectForm(data, **credentials)
     if form.is_valid():
         inv_id = form.cleaned_data['InvId']
         out_sum = form.cleaned_data['OutSum']
@@ -71,11 +71,13 @@ def success(request, template_name='robokassa/success.html',
 
 @csrf_exempt
 def fail(request, template_name='robokassa/fail.html', extra_context=None,
-         error_template_name='robokassa/error.html'):
-    """ Обработчик для FailURL """
+         error_template_name='robokassa/error.html', **credentials):
+    """
+    Обработчик для FailURL.
+    """
 
     data = request.POST if USE_POST else request.GET
-    form = FailRedirectForm(data)
+    form = FailRedirectForm(data, **credentials)
     if form.is_valid():
         inv_id = form.cleaned_data['InvId']
         out_sum = form.cleaned_data['OutSum']
