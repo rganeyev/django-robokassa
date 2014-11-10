@@ -1,28 +1,22 @@
-#!/usr/bin/env python
-#coding: utf-8
-from distutils.core import setup
+# -*- encoding: utf-8 -*-
+from setuptools import setup, find_packages
 from robokassa import get_version
 
-for cmd in ('egg_info', 'develop'):
-    import sys
-    if cmd in sys.argv:
-        from setuptools import setup
-
-import sys
-reload(sys).setdefaultencoding("UTF-8")
 
 setup(
-    name='django-robokassa',
+    name='django-robokassa-payments',
     version=get_version(),
     author='Mikhail Korobov',
     author_email='kmike84@gmail.com',
-    packages=['robokassa', 'robokassa.migrations'],
-    url='https://bitbucket.org/kmike/django-robokassa/',
+    maintainer='gotlium',
+    maintainer_email='gotlium@gmail.com',
+    packages=find_packages(exclude=['demo']),
+    include_package_data=True,
+    url='https://github.com/LPgenerator/django-robokassa/',
     license='MIT license',
     description=u'Приложение для интеграции платежной системы '
                 u'ROBOKASSA в проекты на Django.'.encode('utf8'),
-    long_description=open('README.rst').read().decode('utf8') + u"\n\n" + open('CHANGES.rst').read().decode('utf8'),
-    requires=['django (>= 1.3)'],
+    long_description=open('README.rst').read().decode('utf8'),
     classifiers=(
         'Development Status :: 5 - Production/Stable',
         'Environment :: Web Environment',

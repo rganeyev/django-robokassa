@@ -1,0 +1,5 @@
+Django==1.6.8
+South>=1.0
+flake8>=2.2.2
+wheel==0.24.0
+tox>=1.8.0

@@ -36,7 +36,11 @@ class RobokassaFormTest(TestCase):
         )
 
     def testRedirectUrl(self):
-        url = "https://merchant.roboxchange.com/Index.aspx?MrchLogin=test_login&OutSum=100.0&InvId=58&Desc=%D5%EE%EB%EE%E4%E8%EB%FC%ED%E8%EA+%22%C1%E8%F0%FE%F1%E0%22&SignatureValue=0EC23BE40003640B35EC07F6615FFB57&Email=vasia%40example.com&shpparam1=None&shpparam2=None"
+        url = "https://merchant.roboxchange.com/Index.aspx?MrchLogin=" \
+              "test_login&OutSum=100.0&InvId=58&Desc=%D5%EE%EB%EE%E4%" \
+              "E8%EB%FC%ED%E8%EA+%22%C1%E8%F0%FE%F1%E0%22&SignatureVa" \
+              "lue=0EC23BE40003640B35EC07F6615FFB57&Email=vasia%40exa" \
+              "mple.com&shpparam1=None&shpparam2=None"
         self.assertEqual(self.form.get_redirect_url(), url)
 
 
@@ -133,7 +137,11 @@ class RobokassaCustomCredentialFormTest(TestCase):
         )
 
     def testRedirectUrl(self):
-        url = "https://merchant.roboxchange.com/Index.aspx?MrchLogin=test_login2&OutSum=100.0&InvId=58&Desc=%D5%EE%EB%EE%E4%E8%EB%FC%ED%E8%EA+%22%C1%E8%F0%FE%F1%E0%22&SignatureValue=6599E0D576E94D4E8616A40B16B8288F&Email=vasia%40example.com&shpparam1=None&shpparam2=None"
+        url = "https://merchant.roboxchange.com/Index.aspx?MrchLogin=" \
+              "test_login2&OutSum=100.0&InvId=58&Desc=%D5%EE%EB%EE%E4%E8%" \
+              "EB%FC%ED%E8%EA+%22%C1%E8%F0%FE%F1%E0%22&SignatureValue=659" \
+              "9E0D576E94D4E8616A40B16B8288F&Email=vasia%40example.com&sh" \
+              "pparam1=None&shpparam2=None"
         self.assertEqual(self.form.get_redirect_url(), url)
 
 
