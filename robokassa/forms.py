@@ -1,12 +1,11 @@
 # coding: utf-8
 
 from hashlib import md5
+from django import forms
 try:
     from urllib import urlencode
 except ImportError:
     from urllib.parse import urlencode
-from django import forms
-
 from robokassa.conf import LOGIN, PASSWORD1, PASSWORD2
 from robokassa.conf import STRICT_CHECK, FORM_TARGET, EXTRA_PARAMS
 from robokassa.models import SuccessNotification
