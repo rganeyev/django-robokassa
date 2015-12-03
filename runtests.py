@@ -6,8 +6,6 @@ from django.conf import settings
 import django
 
 
-print '>>>', django.VERSION
-
 if django.VERSION < (1, 7):
     installed_apps = ('robokassa', 'south',)
 else:

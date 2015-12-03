@@ -2,6 +2,11 @@
 from setuptools import setup, find_packages
 from robokassa import get_version
 
+try:
+    long_description = open('README.rst').read().decode('utf8')
+except AttributeError:
+    long_description = open('README.rst').read()
+
 
 setup(
     name='django-robokassa-payments',
@@ -16,7 +21,7 @@ setup(
     license='MIT license',
     description=u'Приложение для интеграции платежной системы '
                 u'ROBOKASSA в проекты на Django.'.encode('utf8'),
-    long_description=open('README.rst').read().decode('utf8'),
+    long_description=long_description,
     classifiers=(
         'Development Status :: 5 - Production/Stable',
         'Environment :: Web Environment',
@@ -27,6 +32,9 @@ setup(
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
         'Topic :: Software Development :: Libraries :: Python Modules',
         'Natural Language :: Russian',
     ),

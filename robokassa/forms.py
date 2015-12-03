@@ -2,13 +2,16 @@
 
 from hashlib import md5
 from django import forms
+
 try:
     from urllib import urlencode
 except ImportError:
     from urllib.parse import urlencode
+
 from robokassa.conf import LOGIN, PASSWORD1, PASSWORD2
 from robokassa.conf import STRICT_CHECK, FORM_TARGET, EXTRA_PARAMS
 from robokassa.models import SuccessNotification
+from robokassa import to_unicode, PY2
 
 
 class BaseRobokassaForm(forms.Form):
@@ -43,7 +46,10 @@ class BaseRobokassaForm(forms.Form):
         return extra
 
     def _get_signature(self):
-        return md5(self._get_signature_string()).hexdigest().upper()
+        if PY2:
+            return md5(self._get_signature_string()).hexdigest().upper()
+        return md5(
+            self._get_signature_string().encode("ascii")).hexdigest().upper()
 
     def _get_signature_string(self):
         raise NotImplementedError
@@ -100,7 +106,7 @@ class RobokassaForm(BaseRobokassaForm):
             val = self.initial.get(key, fld.initial)
             if not val:
                 return val
-            return unicode(val).encode('1251')
+            return to_unicode(val).encode('1251')
 
         fields = [
             (name, _initial(name, field))
@@ -115,7 +121,7 @@ class RobokassaForm(BaseRobokassaForm):
                 value = self.initial[name]
             else:
                 value = self.fields[name].initial
-            return '' if value is None else unicode(value)
+            return '' if value is None else to_unicode(value)
 
         standard_part = ':'.join(
             [_val('MrchLogin'), _val('OutSum'), _val('InvId'), self.password1])
@@ -142,7 +148,7 @@ class ResultURLForm(BaseRobokassaForm):
         return self.cleaned_data
 
     def _get_signature_string(self):
-        _val = lambda name: unicode(self.cleaned_data[name])
+        _val = lambda name: to_unicode(self.cleaned_data[name])
         standard_part = ':'.join(
             [_val('OutSum'), _val('InvId'), self.password2])
         return self._append_extra_part(standard_part, _val)
@@ -156,7 +162,7 @@ class _RedirectPageForm(ResultURLForm):
     Culture = forms.CharField(max_length=10)
 
     def _get_signature_string(self):
-        _val = lambda name: unicode(self.cleaned_data[name])
+        _val = lambda name: to_unicode(self.cleaned_data[name])
         standard_part = ':'.join(
             [_val('OutSum'), _val('InvId'), self.password1])
         return self._append_extra_part(standard_part, _val)
