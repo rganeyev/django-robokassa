@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 from robokassa import get_version
 
 try:
-    long_description = open('README.rst').read() #open('README.rst').read().decode('utf8')
+    long_description = '' #open('README.rst').read().decode('utf8')
 except AttributeError:
     long_description = open('README.rst').read()
 
